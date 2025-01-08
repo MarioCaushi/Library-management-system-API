@@ -4,10 +4,12 @@ using Library_management_system_API.Services.ServicesInterfaces;
 using Microsoft.EntityFrameworkCore;
 using static Library_management_system_API.Errors.ExceptionsMiddlewareExtensions;
 
+// adela
 var builder = WebApplication.CreateBuilder(args);
 
 // Manually load .env file
 LoadEnvVariables();
+
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
