@@ -3,4 +3,10 @@ bin/
 obj/
 .idea/
 .DS_Store
+.env
+
+# Ignore specific files
+Library-management-system-API.csproj
+Library-management-system-API.http
+Library-management-system-API.sln
 
