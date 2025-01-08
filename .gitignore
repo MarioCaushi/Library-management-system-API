@@ -10,3 +10,7 @@ Library-management-system-API.csproj
 Library-management-system-API.http
 Library-management-system-API.sln
 
+# Ignore specific build output directories
+bin/Debug/net9.0/
+bin/Debug/
+net9.0/
