@@ -4,6 +4,9 @@ obj/
 .idea/
 .DS_Store
 .env
+.vs/
+*.user
+
 
 # Ignore specific build output directories
 bin/Debug/net9.0/
