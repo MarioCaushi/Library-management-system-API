@@ -1,0 +1,6 @@
+# Ignore build and IDE-specific files
+bin/
+obj/
+.idea/
+.DS_Store
+
