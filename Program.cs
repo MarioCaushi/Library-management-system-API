@@ -1,4 +1,6 @@
 using Library_management_system_API.Data;
+using Library_management_system_API.Services;
+using Library_management_system_API.Services.ServicesInterfaces;
 using Microsoft.EntityFrameworkCore;
 using static Library_management_system_API.Errors.ExceptionsMiddlewareExtensions;
 
@@ -30,6 +32,10 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "My API", Version = "v1" });
 });
+
+// Register the services
+
+builder.Services.AddScoped<IExample, Example>();
 
 var app = builder.Build();
 
