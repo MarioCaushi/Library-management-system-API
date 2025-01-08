@@ -4,7 +4,7 @@ using Library_management_system_API.Services.ServicesInterfaces;
 using Microsoft.EntityFrameworkCore;
 using static Library_management_system_API.Errors.ExceptionsMiddlewareExtensions;
 
-
+//na u ca kari
 var builder = WebApplication.CreateBuilder(args);
 
 // Manually load .env file
