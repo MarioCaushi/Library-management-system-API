@@ -5,9 +5,8 @@ namespace Library_management_system_API.Controllers;
 
 [ Route( "api/[controller]" )]
 [ ApiController]
-public class ExampleController : Controller
+public class ExampleController : ControllerBase
 {
-
     private readonly IExample _example;
     
     public ExampleController(IExample example)
@@ -21,3 +20,4 @@ public class ExampleController : Controller
         return Ok(await _example.GetBooks());
     }
 }
+
