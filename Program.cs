@@ -1,10 +1,11 @@
 using Library_management_system_API.Data;
+using Library_management_system_API.Models;
 using Library_management_system_API.Services;
+using Library_management_system_API.Services.Manager;
 using Library_management_system_API.Services.ServicesInterfaces;
 using Microsoft.EntityFrameworkCore;
 using static Library_management_system_API.Errors.ExceptionsMiddlewareExtensions;
 
-//na u ca kari
 var builder = WebApplication.CreateBuilder(args);
 
 // Manually load .env file
@@ -38,6 +39,7 @@ builder.Services.AddSwaggerGen(c =>
 // Register the services
 
 builder.Services.AddScoped<IExample, Example>();
+builder.Services.AddScoped<IManager, ManagerService>();
 
 var app = builder.Build();
 
