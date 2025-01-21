@@ -11,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Manually load .env file
 LoadEnvVariables();
 
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -38,8 +37,9 @@ builder.Services.AddSwaggerGen(c =>
 
 // Register the services
 
-builder.Services.AddScoped<IExample, Example>();
 builder.Services.AddScoped<IManager, ManagerService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
 
 var app = builder.Build();
 
