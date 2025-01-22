@@ -11,9 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Manually load .env file
 LoadEnvVariables();
 
-
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddControllers();
 builder.Services.AddCors();
 
@@ -38,9 +37,16 @@ builder.Services.AddSwaggerGen(c =>
 
 // Register the services
 
+<<<<<<< HEAD
 builder.Services.AddScoped<IExample, Example>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
 builder.Services.AddScoped<IClientService, ClientsService>();
+=======
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IRegisterService, RegisterService>();
+builder.Services.AddScoped<IManager, ManagerService>();
+builder.Services.AddScoped<IBookService, BookService>();
+>>>>>>> c3430eb03120d2a72a183b9d95e426c136a20193
 
 var app = builder.Build();
 
