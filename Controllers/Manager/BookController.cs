@@ -31,7 +31,7 @@ public class BookController : Controller
         var deleted = await _bookService.deleteBook(id);
 
         if (deleted == null) return NoContent();
-
+        
         return Ok(); 
     }
 
@@ -39,11 +39,11 @@ public class BookController : Controller
     public async Task<IActionResult> CheckBook(string title)
     {
         var exists = await _bookService.checkBookExists(title);
-        
-        if (exists) return NoContent();
-        
-        return Ok("Book does not exist");
+
+        if (exists) return Ok("Book exists"); 
+        return NotFound("Book does not exist");
     }
+
 
     [HttpPost("add-book")]
     public async Task<IActionResult> AddBook([FromBody] AddBookDto? addBook)
