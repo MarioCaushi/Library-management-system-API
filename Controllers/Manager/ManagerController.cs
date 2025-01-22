@@ -7,9 +7,9 @@ namespace Library_management_system_API.Controllers.Manager
     [ApiController]
     public class ManagerController : ControllerBase
     {
-        private readonly IManager _manager;
+        private readonly IManagerService _manager;
         
-        public ManagerController(IManager manager)
+        public ManagerController(IManagerService manager)
         {
             _manager = manager;
         }
@@ -17,7 +17,7 @@ namespace Library_management_system_API.Controllers.Manager
         [HttpGet("get-manager-by-id/{id:int}")]
         public async Task<IActionResult> GetManagerById(int id)
         {
-            var manager = _manager.GetManagerInfo(id);
+            var manager = await _manager.GetManagerInfo(id);
 
             if (manager == null) {
                 return NotFound();

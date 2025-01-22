@@ -39,7 +39,8 @@ builder.Services.AddSwaggerGen(c =>
 // Register the services
 
 builder.Services.AddScoped<IExample, Example>();
-builder.Services.AddScoped<IManager, ManagerService>();
+builder.Services.AddScoped<IManagerService, ManagerService>();
+builder.Services.AddScoped<IClientService, ClientsService>();
 
 var app = builder.Build();
 
