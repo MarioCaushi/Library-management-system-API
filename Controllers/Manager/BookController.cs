@@ -56,4 +56,13 @@ public class BookController : Controller
      
      return Ok("Book added");
     }
+
+    [HttpGet("search-books/{keyword}")]
+    public async Task<IActionResult> SearchBooks(string keyword)
+    {
+        var searchBooks = await _bookService.searchBookCards(keyword);
+        
+        if (searchBooks == null || searchBooks.Count == 0) return NoContent();
+        return Ok(searchBooks);
+    }
 }

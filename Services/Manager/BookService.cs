@@ -69,4 +69,34 @@ public class BookService : IBookService
         return true;
     }
 
+    public async Task<ICollection<BookCardDto>> searchBookCards(string keyword)
+    {
+        int keywordAsInt;
+        double keywordAsDouble;
+        bool isInt = int.TryParse(keyword, out keywordAsInt);
+        bool isDouble = double.TryParse(keyword, out keywordAsDouble);
+
+        var books = await _libraryDB.Books
+            .Where(book => 
+                string.IsNullOrEmpty(keyword) ||
+                book.Title.Trim().ToLower().Contains(keyword.Trim().ToLower()) ||
+                book.Author.Trim().ToLower().Contains(keyword.Trim().ToLower()) ||
+                book.Genre.Trim().ToLower().Contains(keyword.Trim().ToLower()) ||
+                (isDouble && book.Price == keywordAsDouble) ||
+                (isInt && book.IdBook == keywordAsInt))
+            .Select(book => new BookCardDto
+            {
+                IdBook = book.IdBook,
+                Title = book.Title,
+                Author = book.Author,
+                Genre = book.Genre,
+                Price = book.Price,
+                CoverImageUrl = book.CoverImageUrl,
+            })
+            .ToListAsync();
+
+        return books;
+    }
+
+
 }

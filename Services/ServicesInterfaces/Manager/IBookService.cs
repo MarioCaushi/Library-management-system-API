@@ -16,4 +16,7 @@ public interface IBookService
     
     //Function to add a new book
     public Task<bool> addBook(AddBookDto book);
+    
+    //Function to get books by keyword
+    public Task<ICollection<BookCardDto>> searchBookCards(string keyword);
 }
