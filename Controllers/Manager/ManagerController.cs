@@ -7,9 +7,9 @@ namespace Library_management_system_API.Controllers.Manager
     [ApiController]
     public class ManagerController : ControllerBase
     {
-        private readonly IManager _manager;
+        private readonly IManagerService _manager;
         
-        public ManagerController(IManager manager)
+        public ManagerController(IManagerService manager)
         {
             _manager = manager;
         }

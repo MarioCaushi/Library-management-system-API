@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library_management_system_API.Services.Manager
 {
-    public class ManagerService : IManager
+    public class ManagerService : IManagerService
     {
         private readonly LibraryDB _libraryDB;
 
@@ -28,6 +28,7 @@ namespace Library_management_system_API.Services.Manager
 
             var managerDto = new ManagerDto()
             {
+                Id = manager.IdManager,
                 Name = manager.Name,
                 LastName = manager.LastName,
                 Email = manager.Email,

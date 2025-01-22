@@ -37,10 +37,13 @@ builder.Services.AddSwaggerGen(c =>
 
 // Register the services
 
+
+builder.Services.AddScoped<IManagerService, ManagerService>();
+builder.Services.AddScoped<IClientService, ClientsService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
-builder.Services.AddScoped<IManager, ManagerService>();
 builder.Services.AddScoped<IBookService, BookService>();
+
 
 var app = builder.Build();
 
