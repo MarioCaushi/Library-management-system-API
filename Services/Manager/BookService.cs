@@ -143,9 +143,45 @@ public class BookService : IBookService
         };
     }
 
+    public async Task<ICollection<BookReviewsDto>> searchBookReviews(string keyword, int id)
+    {
+        int keywordAsInt;
+        bool isInt = int.TryParse(keyword, out keywordAsInt);
+        
+        
+        // Retrieve all reviews and associated client details in a single query
+        return await _libraryDB.Reviews
+            .Where(r => r.IdBook == id)
+            .Select(r => new BookReviewsDto() 
+            {
+                ClientId =  r.IdClient,
+                Review =  r.ReviewText,
+                Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Name,
+                Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Username
+            }).Where(dto =>  (isInt && dto.ClientId == keywordAsInt) ||
+                            dto.Username.ToLower().Trim().Contains(keyword) ||
+                            dto.Name.ToLower().Trim().Contains(keyword) ||
+                            dto.Review.ToLower().Trim().Contains(keyword) ||
+                            string.IsNullOrEmpty(keyword)).ToListAsync();
+        
+    }
 
+    public async Task<ICollection<BookLikesDto>> searchBookLikes(string keyword, int id)
+    {
+        int keywordAsInt;
+        bool isInt = int.TryParse(keyword, out keywordAsInt);
 
+        return await _libraryDB.BooksLikes
+            .Where(bl => bl.IdBook == id)
+            .Select(bl => new BookLikesDto()
+            {
+                ClientId = bl.IdClient,
+                Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Name,
+                Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Username,
+            }).Where(dto => string.IsNullOrEmpty(keyword) || dto.Name.ToLower().Trim().Contains(keyword)
+                                                          || dto.Username.ToLower().Trim().Contains(keyword) ||
+                                                          (isInt && dto.ClientId == keywordAsInt)).ToListAsync();
+    }
 
-    
     
 }

@@ -73,4 +73,20 @@ public class BookController : Controller
         if (bookInfo == null) return NoContent();
         return Ok(bookInfo);
     }
+
+    [HttpGet("search-book-reviews/{id:int}/{keyword}")]
+    public async Task<IActionResult> SearchBookReviews(int id, string keyword)
+    {
+        var searchReviews = await _bookService.searchBookReviews(keyword, id);
+        if (searchReviews == null || searchReviews.Count == 0) return NoContent();
+        return Ok(searchReviews);
+    }
+
+    [HttpGet("search-book-likes/{id:int}/{keyword}")]
+    public async Task<IActionResult> SearchBookLikes(int id, string keyword)
+    {
+        var searchBookLikes = await _bookService.searchBookLikes(keyword, id);
+        if (searchBookLikes == null || searchBookLikes.Count == 0) return NoContent();
+        return Ok(searchBookLikes);
+    }
 }
