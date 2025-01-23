@@ -56,4 +56,55 @@ public class BookController : Controller
      
      return Ok("Book added");
     }
+
+    [HttpGet("search-books/{keyword}")]
+    public async Task<IActionResult> SearchBooks(string keyword)
+    {
+        var searchBooks = await _bookService.searchBookCards(keyword);
+        
+        if (searchBooks == null || searchBooks.Count == 0) return NoContent();
+        return Ok(searchBooks);
+    }
+
+    [HttpGet("get-book-info/{id:int}")]
+    public async Task<IActionResult> GetBookInfo(int id)
+    {
+        var bookInfo = await _bookService.getBookInfo(id);
+        if (bookInfo == null) return NoContent();
+        return Ok(bookInfo);
+    }
+
+    [HttpGet("search-book-reviews/{id:int}/{keyword}")]
+    public async Task<IActionResult> SearchBookReviews(int id, string keyword)
+    {
+        var searchReviews = await _bookService.searchBookReviews(keyword, id);
+        if (searchReviews == null || searchReviews.Count == 0) return NoContent();
+        return Ok(searchReviews);
+    }
+
+    [HttpGet("search-book-likes/{id:int}/{keyword}")]
+    public async Task<IActionResult> SearchBookLikes(int id, string keyword)
+    {
+        var searchBookLikes = await _bookService.searchBookLikes(keyword, id);
+        if (searchBookLikes == null || searchBookLikes.Count == 0) return NoContent();
+        return Ok(searchBookLikes);
+    }
+
+    [HttpPut("update-book")]
+    public async Task<IActionResult> updateBook([FromBody] EditBookDto? editBook)
+    {
+        if (editBook == null) return BadRequest();
+        
+        var isEdited = await  _bookService.editBook(editBook);
+        if(!isEdited) return NoContent();
+        return Ok();
+    }
+
+    [HttpDelete("delete-review-like/{id:int}/{keyword}")]
+    public async Task<IActionResult> DeleteReviewLike(int id, string keyword)
+    {
+        var deleted = await _bookService.deleteEditBook(id, keyword);
+        if (!deleted) return NoContent();
+        return Ok();
+    }
 }
