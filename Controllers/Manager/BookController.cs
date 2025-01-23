@@ -89,4 +89,14 @@ public class BookController : Controller
         if (searchBookLikes == null || searchBookLikes.Count == 0) return NoContent();
         return Ok(searchBookLikes);
     }
+
+    [HttpPut("update-book")]
+    public async Task<IActionResult> updateBook([FromBody] EditBookDto? editBook)
+    {
+        if (editBook == null) return BadRequest();
+        
+        var isEdited = await  _bookService.editBook(editBook);
+        if(!isEdited) return NoContent();
+        return Ok();
+    }
 }

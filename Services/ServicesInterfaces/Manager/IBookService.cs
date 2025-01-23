@@ -29,4 +29,7 @@ public interface IBookService
     //Function to search the likes list of a book
     public Task<ICollection<BookLikesDto>> searchBookLikes(string keyword,int id);
     
+    //Function to edit book info 
+    public Task<bool> editBook(EditBookDto book);
+    
 }

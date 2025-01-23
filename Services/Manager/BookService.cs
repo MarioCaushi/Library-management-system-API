@@ -183,5 +183,23 @@ public class BookService : IBookService
                                                           (isInt && dto.ClientId == keywordAsInt)).ToListAsync();
     }
 
-    
+    public async Task<bool> editBook(EditBookDto book)
+    {
+        var bookToEdit = _libraryDB.Books.FirstOrDefault(b => b.IdBook == book.IdBook);
+        if (bookToEdit == null) return false;
+        
+        bookToEdit.Title = book.Title;
+        bookToEdit.Author = book.Author;
+        bookToEdit.Genre = book.Genre;
+        bookToEdit.Price = book.Price;
+        bookToEdit.Description = book.Description;
+        bookToEdit.PublishedYear = book.PublishedYear;
+        bookToEdit.Rating = book.Rating;
+        bookToEdit.CoverImageUrl = book.CoverImageUrl;
+        bookToEdit.IdManager = book.IdManager;
+        
+        _libraryDB.Books.Update(bookToEdit);
+        await _libraryDB.SaveChangesAsync();
+        return true;
+    }
 }
