@@ -19,4 +19,8 @@ public interface IBookService
     
     //Function to get books by keyword
     public Task<ICollection<BookCardDto>> searchBookCards(string keyword);
+    
+    //Function the necessary book info
+    public Task<InfoBookDto?> getBookInfo(int id);
+    
 }

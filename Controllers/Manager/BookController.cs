@@ -65,4 +65,12 @@ public class BookController : Controller
         if (searchBooks == null || searchBooks.Count == 0) return NoContent();
         return Ok(searchBooks);
     }
+
+    [HttpGet("get-book-info/{id:int}")]
+    public async Task<IActionResult> GetBookInfo(int id)
+    {
+        var bookInfo = await _bookService.getBookInfo(id);
+        if (bookInfo == null) return NoContent();
+        return Ok(bookInfo);
+    }
 }

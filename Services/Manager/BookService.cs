@@ -98,5 +98,54 @@ public class BookService : IBookService
         return books;
     }
 
+    public async Task<InfoBookDto?> getBookInfo(int id)
+    {
+        var book = await _libraryDB.Books
+            .FirstOrDefaultAsync(b => b.IdBook == id);
+        if (book == null) return null;
 
+        // Retrieve all clients associated with the likes in a single query
+        var bookLikes = await _libraryDB.BooksLikes
+            .Where(bl => bl.IdBook == id)
+            .Select(bl => new BookLikesDto()
+            {
+                ClientId = bl.IdClient,
+                Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Name,
+                Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Username,
+            }).ToListAsync();
+
+        // Retrieve all reviews and associated client details in a single query
+        var bookReviews = await _libraryDB.Reviews
+            .Where(r => r.IdBook == id)
+            .Select(r => new BookReviewsDto() 
+            {
+               ClientId =  r.IdClient,
+               Review =  r.ReviewText,
+               Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Name,
+               Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Username
+            }).ToListAsync();
+
+        return new InfoBookDto
+        {
+            BookId = id,
+            CoverImageUrl = book.CoverImageUrl,
+            Title = book.Title,
+            Author = book.Author,
+            Genre = book.Genre,
+            Price = book.Price,
+            Description = book.Description,
+            PublishedYear = book.PublishedYear,
+            Rating = book.Rating,
+            NoLikes = bookLikes.Count,
+            NoReviews = bookReviews.Count,
+            BookReviews = bookReviews,
+            BookLikes = bookLikes
+        };
+    }
+
+
+
+
+    
+    
 }
