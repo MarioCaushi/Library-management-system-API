@@ -6,4 +6,6 @@ public class BookReviewsDto
     public string Username {get; set;}
     public int ClientId {get; set;}
     public string Review {get; set;}
+    
+    public int ReviewId {get; set;}
 }

@@ -32,4 +32,7 @@ public interface IBookService
     //Function to edit book info 
     public Task<bool> editBook(EditBookDto book);
     
+    //Function to delete a review or a like from a book
+    public Task<bool> deleteEditBook(int id, string keyword);
+
 }

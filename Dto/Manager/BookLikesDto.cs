@@ -5,4 +5,6 @@ public class BookLikesDto
     public string Name {get; set;}
     public string Username {get; set;}
     public int ClientId {get; set;}
+    
+    public int IdOfLikeBook {get; set;}
 }

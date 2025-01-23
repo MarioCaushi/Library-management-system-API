@@ -1,3 +1,4 @@
+using System.Runtime.Intrinsics.X86;
 using Library_management_system_API.Data;
 using Library_management_system_API.Dto.Manager;
 using Library_management_system_API.Models;
@@ -110,6 +111,7 @@ public class BookService : IBookService
             .Select(bl => new BookLikesDto()
             {
                 ClientId = bl.IdClient,
+                IdOfLikeBook = bl.IdOfLikeB,
                 Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Name,
                 Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Username,
             }).ToListAsync();
@@ -121,6 +123,7 @@ public class BookService : IBookService
             {
                ClientId =  r.IdClient,
                Review =  r.ReviewText,
+               ReviewId = r.IdOfReview,
                Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Name,
                Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Username
             }).ToListAsync();
@@ -156,6 +159,7 @@ public class BookService : IBookService
             {
                 ClientId =  r.IdClient,
                 Review =  r.ReviewText,
+                ReviewId = r.IdOfReview,
                 Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Name,
                 Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == r.IdClient).Username
             }).Where(dto =>  (isInt && dto.ClientId == keywordAsInt) ||
@@ -176,6 +180,7 @@ public class BookService : IBookService
             .Select(bl => new BookLikesDto()
             {
                 ClientId = bl.IdClient,
+                IdOfLikeBook = bl.IdOfLikeB,
                 Name = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Name,
                 Username = _libraryDB.Clients.FirstOrDefault(c => c.IdClient == bl.IdClient).Username,
             }).Where(dto => string.IsNullOrEmpty(keyword) || dto.Name.ToLower().Trim().Contains(keyword)
@@ -202,4 +207,25 @@ public class BookService : IBookService
         await _libraryDB.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> deleteEditBook(int id, string keyword)
+    {
+        if (keyword == "client")
+        {
+            var client = await _libraryDB.BooksLikes.FirstOrDefaultAsync(c => c.IdOfLikeB == id);
+            if (client == null) return false;
+            _libraryDB.BooksLikes.Remove(client);
+            await _libraryDB.SaveChangesAsync();
+            return true;
+        }
+        else
+        {
+            var review = await _libraryDB.Reviews.FirstOrDefaultAsync(b => b.IdOfReview == id);
+            if (review == null) return false;
+            _libraryDB.Reviews.Remove(review);
+            await _libraryDB.SaveChangesAsync();
+            return true;
+        }
+    }
+
 }

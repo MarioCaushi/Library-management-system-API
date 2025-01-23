@@ -99,4 +99,12 @@ public class BookController : Controller
         if(!isEdited) return NoContent();
         return Ok();
     }
+
+    [HttpDelete("delete-review-like/{id:int}/{keyword}")]
+    public async Task<IActionResult> DeleteReviewLike(int id, string keyword)
+    {
+        var deleted = await _bookService.deleteEditBook(id, keyword);
+        if (!deleted) return NoContent();
+        return Ok();
+    }
 }
