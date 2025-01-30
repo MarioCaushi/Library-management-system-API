@@ -19,7 +19,7 @@ public class RegisterService: IRegisterService
     {
         if (input is null) return false;
         
-        var newClient = new Client()
+        var newClient = new Models.Client()
         {
             Name = input.Name,
             LastName = input.LastName,
