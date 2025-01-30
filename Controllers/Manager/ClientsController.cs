@@ -74,11 +74,6 @@ namespace Library_management_system_API.Controllers.Manager
         {
             var purchasedBooks = await _clients.GetPurchasedBooks(clientId);
 
-            if (!purchasedBooks.Any())
-            {
-                return NotFound(new { message = $"This client with ID {clientId} has purchesed no books." }); 
-            }
-
             return Ok(purchasedBooks);
         }
 
@@ -87,11 +82,6 @@ namespace Library_management_system_API.Controllers.Manager
         {
             var likedBooks = await _clients.GetLikedBooks(clientId);
 
-            if (!likedBooks.Any())
-            {
-                return NotFound(new { message = $"This client with ID {clientId} has liked no books." });
-            }
-
             return Ok(likedBooks);
         }
 
@@ -99,11 +89,6 @@ namespace Library_management_system_API.Controllers.Manager
         public async Task<IActionResult> GetClientReviews(int clientId)
         {
             var reviews = await _clients.GetClientReviews(clientId);
-
-            if (!reviews.Any())
-            {
-                return NotFound(new { message = $"This client with ID {clientId} has reviewed no books." });
-            }
 
             return Ok(reviews);
         }
