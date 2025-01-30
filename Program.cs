@@ -1,8 +1,10 @@
 using Library_management_system_API.Data;
 using Library_management_system_API.Models;
 using Library_management_system_API.Services;
+using Library_management_system_API.Services.Client;
 using Library_management_system_API.Services.Manager;
 using Library_management_system_API.Services.ServicesInterfaces;
+using Library_management_system_API.Services.ServicesInterfaces.Client;
 using Microsoft.EntityFrameworkCore;
 using static Library_management_system_API.Errors.ExceptionsMiddlewareExtensions;
 
@@ -43,6 +45,8 @@ builder.Services.AddScoped<IClientService, ClientsService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBrowserService, BrowserService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 
 var app = builder.Build();
