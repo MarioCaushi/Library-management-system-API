@@ -21,7 +21,6 @@ public class CartService : ICartService
         if (bookPurchasedDto == null) return false;
         BooksPurchased booksPurchased = new BooksPurchased()
         {
-            IdOfPurchase = bookPurchasedDto.IdOfPurchase,
             IdClient = bookPurchasedDto.IdClient,
             Client = await _libraryDb.Clients.FirstOrDefaultAsync(c => c.IdClient == bookPurchasedDto.IdClient),
             IdBook = bookPurchasedDto.IdBook,
