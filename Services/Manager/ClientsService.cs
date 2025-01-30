@@ -133,6 +133,7 @@ namespace Library_management_system_API.Services.Manager
             .Select(r => new ClientReviewDto
             {
                 IdOfReview = r.IdOfReview,
+                BookId = r.Book.IdBook,
                 BookTitle = r.Book.Title,
                 Author = r.Book.Author,
                 ReviewText = r.ReviewText,
