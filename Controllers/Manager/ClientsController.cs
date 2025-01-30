@@ -40,7 +40,7 @@ namespace Library_management_system_API.Controllers.Manager
                 return NotFound(new { message = $"Client with ID {clientId} not found." });
             }
 
-            return Ok(new { message = $"Client with ID {clientId} deleted successfully." });
+            return Ok();
         }
 
         [HttpGet("search")]
